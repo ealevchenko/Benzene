@@ -1,0 +1,91 @@
+﻿@{
+    ViewBag.Title = "ТОВ 'НАФТА ТРАНС СЕРВІС'";
+    ViewBag.section = "Отчет по движению ГСМ в емкостях";
+}
+
+@section styles {
+    @*@Styles.Render("~/jquery-ui/css")*@
+    @Styles.Render("~/DataTables/css")
+    @Styles.Render("~/DateTime/css")
+    <link rel="stylesheet" type="text/css" href="~/Content/report/report.css">
+}
+
+@section scripts {
+
+    <script>
+        $('body').addClass('img-header-global');
+        $('#page-width').addClass('average');
+    </script>
+
+    <script>
+        var mode_run = '@System.Configuration.ConfigurationManager.AppSettings["ModeRun"]';
+        var logs = '@System.Configuration.ConfigurationManager.AppSettings["Logs"]';
+    </script>
+
+    @Scripts.Render("~/bundles/Ajax")
+    @Scripts.Render("~/bundles/Moment")
+    @*@Scripts.Render("~/bundles/jquery-ui")*@
+    @Scripts.Render("~/bundles/DataTables")
+    @Scripts.Render("~/bundles/DateTime")
+
+    <script src="~/Scripts/shared/common.js" type="text/javascript"></script>
+    <script src="~/Scripts/report/report_fuel_flow_tanks.js" type="text/javascript"></script>
+}
+
+<div class="card border-info mb-3">
+    <div class="card-header bg-info text-white">
+        <form class="form-inline">
+            @*<div class="form-group">
+                <label class="control-label">Выберите дату :</label>
+                <div class="input-group ml-2">
+                    <div class="input-group-prepend">
+                        <button type="button" class="btn btn-primary btn-sm" id="bt-left"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span><</button>
+                    </div>
+                    <span id="select-date">
+                        <input class="form-control form-control-sm" id="date" name="date">
+                    </span>
+                    <div class="input-group-append">
+                        <button type="button" class="btn btn-primary btn-sm" id="bt-right"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>></button>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group ml-2">
+                <label for="select-smena" class="control-label">Выберите смену :</label>
+                <select class="form-control form-control-sm ml-2" id="select-smena" name="select-smena"></select>
+            </div>*@
+            <div class="form-group ml-2">
+                <label class="control-label">Выберите период :</label>
+                <span id="select-range-date" class="ml-2">
+                    <input class="form-control form-control-sm" id="date-start" name="date-start">
+                    <input class="form-control form-control-sm" id="date-stop" name="date-stop">
+                </span>
+            </div>
+        </form>
+
+    </div>
+    <div class="card-body text-primary">
+        @*<h5 class="card-title">Primary card title</h5>*@
+        <table class='table table-condensed' id="table-report" style="width:100%; table-layout: fixed">
+            <tfoot>
+                <tr>
+                    <th colspan="2" class="title-foot">ИТОГО Бензин: </th>
+                    <td class="total-foot" id="total_tank_b_start"></td>
+                    <td class="total-foot" id="total_tank_b_stop"></td>
+                    <td class="total-foot" id="total_tank_b_deff"></td>
+                </tr>
+                <tr>
+                    <th colspan="2" class="title-foot">ИТОГО ДТ: </th>
+                    <td class="total-foot" id="total_tank_dt_start"></td>
+                    <td class="total-foot" id="total_tank_dt_stop"></td>
+                    <td class="total-foot" id="total_tank_dt_deff"></td>
+                </tr>
+                <tr>
+                    <th colspan="2" class="title-foot">ИТОГО Газ: </th>
+                    <td class="total-foot" id="total_tank_g_start"></td>
+                    <td class="total-foot" id="total_tank_g_stop"></td>
+                    <td class="total-foot" id="total_tank_g_deff"></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
