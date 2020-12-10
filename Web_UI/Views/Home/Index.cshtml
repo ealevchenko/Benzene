@@ -14,29 +14,65 @@
 }
 <ul class="ca-menu">
     <li>
-        <a href='@Url.Action("RemainsTanks", "Home", new { Area = "Report" })'>
-            <span class="ca-icon">I</span>
+        <a href='#'>
+            <span class="ca-icon">P</span>
+            <div class="ca-content">
+                <h2 class="ca-main">Суточный</h2>
+                <h3 class="ca-sub">Суточный отчет</h3>
+            </div>
+        </a>
+    </li>
+    <li>
+        <a href='#'>
+            <span class="ca-icon">X</span>
+            <div class="ca-content">
+                <h2 class="ca-main">Прием бензола</h2>
+                <h3 class="ca-sub">Отчёт приёма бензола в резервуары</h3>
+            </div>
+        </a>
+    </li>
+    <li>
+        <a href='#'>
+            <span class="ca-icon">Z</span>
+            <div class="ca-content">
+                <h2 class="ca-main">Емкости</h2>
+                <h3 class="ca-sub">Отчет по движению бензола в емкостях</h3>
+            </div>
+        </a>
+    </li>
+    <li>
+        <a href='#'>
+            <span class="ca-icon">U</span>
+            <div class="ca-content">
+                <h2 class="ca-main">Сменный отчет</h2>
+                <h3 class="ca-sub">Отчет по выдачи ГСМ за сменну</h3>
+            </div>
+        </a>
+    </li>
+    <li>
+        <a href='@Url.Action("Remains", "Home", new { Area = "report" })'>
+            <span class="ca-icon">F</span>
             <div class="ca-content">
                 <h2 class="ca-main">Остатки</h2>
-                <h3 class="ca-sub">Отчет по остаткам ГСМ</h3>
+                <h3 class="ca-sub">Отчет по остаткам</h3>
             </div>
         </a>
     </li>
     <li>
-        <a href='@Url.Action("FuelFlowTanks", "Home", new { Area = "Report" })'>
-            <span class="ca-icon">J</span>
-            <div class="ca-content">
-                <h2 class="ca-main">Емкости ГСМ</h2>
-                <h3 class="ca-sub">Отчет по движению ГСМ в емкостях</h3>
-            </div>
-        </a>
-    </li>
-    <li>
-        <a href='@Url.Action("Grafik", "Home", new { Area = "Report" })'>
-            <span class="ca-icon">u</span>
+        <a href='#'>
+            <span class="ca-icon">P</span>
             <div class="ca-content">
                 <h2 class="ca-main">Графики</h2>
                 <h3 class="ca-sub">Графики основных параметров емкостей</h3>
+            </div>
+        </a>
+    </li>
+    <li>
+        <a href='#'>
+            <span class="ca-icon">L</span>
+            <div class="ca-content">
+                <h2 class="ca-main">Емкости</h2>
+                <h3 class="ca-sub">Состояние емкостей с бензолом</h3>
             </div>
         </a>
     </li>

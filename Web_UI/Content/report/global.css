@@ -7,6 +7,7 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, 
 html, body {
     margin: 0;
     padding: 0;
+    font-size:16px;
 }
 
 table {
@@ -111,7 +112,7 @@ h1 {
     margin: 0px;
     /*padding: 20px;*/
     font-size: 1.5rem;
-    /*color:#000;*/
+    color: deepskyblue;
     text-shadow: 1px 1px 1px rgba(255,255,255,0.9);
     text-align: center;
     font-weight: 400;
@@ -120,7 +121,7 @@ h1 {
     h1 span {
         display: block;
         font-size: 0.8rem;
-        color: gold;
+        color: #fff;
         font-style: italic;
         font-family: Georgia, serif;
         padding-top: 5px;
