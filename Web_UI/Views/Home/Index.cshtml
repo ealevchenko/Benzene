@@ -22,7 +22,7 @@
             </div>
         </a>
     </li>
-    <li>
+    @*<li>
         <a href='#'>
             <span class="ca-icon">X</span>
             <div class="ca-content">
@@ -30,9 +30,9 @@
                 <h3 class="ca-sub">Отчёт приёма бензола в резервуары</h3>
             </div>
         </a>
-    </li>
+    </li>*@
     <li>
-        <a href='#'>
+        <a href='@Url.Action("FuelFlowTanks", "Home", new { Area = "Report" })'>
             <span class="ca-icon">Z</span>
             <div class="ca-content">
                 <h2 class="ca-main">Емкости</h2>
