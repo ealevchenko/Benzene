@@ -3,44 +3,13 @@ $(document).ready(function () {
     var date_curent = moment()._d,
         //date_start = moment().set({ 'hour': 0, 'minute': 0, 'second': 0, 'millisecond': 0 })._d,
         //date_stop = moment().set({ 'hour': 23, 'minute': 59, 'second': 59, 'millisecond': 0 })._d,
+        bn = new BENZENE_API(), // Создадим класс TSK_API
         date = moment()._d,
-        //tsk = new TSK_API(), // Создадим класс TSK_API
         panel_report = {
-            bt_left: $('button#bt-left'),
-            bt_right: $('button#bt-right'),
-            select_sm: $('select#select-smena'),
-            span_range_date: $('span#select-range-date'),
             input_date: $('input#date'),
-            input_data_start: $('input#date-start'),
-            input_data_stop: $('input#date-stop'),
             obj_date: null,
             obj_date_range: null,
             init: function () {
-                ////
-                //panel_report.bt_left.on('click', function () {
-                //    date_curent = moment(date_curent).add('days', -1);
-                //    panel_report.obj_date.data('dateRangePicker').setDateRange(moment(date_curent).format('DD.MM.YYYY HH:mm:'), moment(date_curent).format('DD.MM.YYYY HH:mm:'), true);
-                //    panel_report.view_report();
-                //});
-                ////
-                //panel_report.bt_right.on('click', function () {
-                //    date_curent = moment(date_curent).add('days', 1);
-                //    panel_report.obj_date.data('dateRangePicker').setDateRange(moment(date_curent).format('DD.MM.YYYY HH:mm:'), moment(date_curent).format('DD.MM.YYYY HH:mm:'), true);
-                //    panel_report.view_report();
-                //});
-                //// Настроим выбор времени
-                //panel_report.select_sm = cd_initSelect(
-                //    panel_report.select_sm,
-                //    { width: 200 },
-                //    [{ value: 1, text: "Смена Д (07:00-18:59)" }, { value: 2, text: "Смена Н (19:00-06:59)" }],
-                //    null,
-                //    1,
-                //    function (event, ui) {
-                //        event.preventDefault();
-                //        // Обработать выбор смены
-                //        panel_report.view_report();
-                //    },
-                //    null);
                  //настроим компонент выбора времени
                 panel_report.obj_date = panel_report.input_date.dateRangePicker(
                     {
@@ -60,42 +29,10 @@ $(document).ready(function () {
                     .bind('datepicker-closed', function () {
                         date = date_curent;
                         table_report.viewTable(false);
-                        //panel_report.select_sm.prop('disabled', false);
-                        //panel_report.bt_left.prop('disabled', false);
-                        //panel_report.bt_right.prop('disabled', false);
                     });
                 // Выставим текущую дату
                 panel_report.obj_date.data('dateRangePicker').setDateRange(moment(date_curent).format('DD.MM.YYYY HH:mm:'), moment(date_curent).format('DD.MM.YYYY HH:mm:'), true);
-                // настроим компонент выбора времени
-                //panel_report.obj_date_range = panel_report.span_range_date.dateRangePicker(
-                //    {
-                //        language: 'ru',
-                //        format: 'DD.MM.YYYY HH:mm',
-                //        separator: '-',
-                //        autoClose: false,
-                //        time: {
-                //            enabled: true
-                //        },
-                //        setValue: function (s, s1, s2) {
-                //            panel_report.input_data_start.val(s1);
-                //            panel_report.input_data_stop.val(s2);
-
-                //        }
-                //    }).
-                //    bind('datepicker-change', function (evt, obj) {
-                //        date_start = obj.date1;
-                //        date_stop = obj.date2;
-                //    })
-                //    .bind('datepicker-closed', function () {
-                //        table_report.viewTable(false);
-                //        //panel_report.select_sm.prop('disabled', true);
-                //        //panel_report.bt_left.prop('disabled', true);
-                //        //panel_report.bt_right.prop('disabled', true);
-                //    });
-                //var date_curent_start = moment({ y: date_start.getFullYear(), M: date_start.getMonth(), d: date_start.getDate(), h: date_start.getHours(), m: date_start.getMinutes() });
-                //var date_curent_stop = moment({ y: date_stop.getFullYear(), M: date_stop.getMonth(), d: date_stop.getDate(), h: date_stop.getHours(), m: date_stop.getMinutes() });
-                //panel_report.obj_date_range.data('dateRangePicker').setDateRange(date_curent_start.format("DD.MM.YYYY HH:mm"), date_curent_stop.format("DD.MM.YYYY HH:mm"), true);
-            },
+           },
         },
         //
         table_report = {
@@ -125,132 +62,138 @@ $(document).ready(function () {
                         $(row).attr('id', data.id);
                         $('td', row).eq(0).addClass('td-text');
                         $('td', row).eq(1).addClass('td-text');
-                        $('td', row).eq(2).addClass('td-text');
+                        $('td', row).eq(2).addClass('td-number');
                         $('td', row).eq(3).addClass('td-number');
                         $('td', row).eq(4).addClass('td-number');
                         $('td', row).eq(5).addClass('td-number');
                         $('td', row).eq(6).addClass('td-number');
                         $('td', row).eq(7).addClass('td-number');
                         $('td', row).eq(8).addClass('td-number');
-
+                        $('td', row).eq(9).addClass('td-number');
+                        $('td', row).eq(10).addClass('td-number');
                     },
+                    "footerCallback": function (row, data, start, end, display) {
 
-                    //"footerCallback": function (row, data, start, end, display) {
+                        var total_volume = 0;
+                        var total_volume15 = 0;
+                        var total_mass = 0;
+                        var total_mass15 = 0;
+                        var total_dens = 0;
+                        var total_dens15 = 0;
 
-                    //    var total_tank_b_start = 0;
-                    //    var total_tank_dt_start = 0;
-                    //    var total_tank_g_start = 0;
-                    //    var total_tank_b_stop = 0;
-                    //    var total_tank_dt_stop = 0;
-                    //    var total_tank_g_stop = 0;
-                    //    var total_tank_b_deff = 0;
-                    //    var total_tank_dt_deff = 0;
-                    //    var total_tank_g_deff = 0;
+                        var api = this.api(), data;
+                        // Remove the formatting to get integer data for summation
+                        var intVal = function (i) {
+                            return typeof i === 'string' ?
+                                i.replace(/[\$,]/g, '') * 1 :
+                                typeof i === 'number' ?
+                                    i : 0;
+                        };
+                        //
+                        total_volume = api
+                            .data()
+                            .reduce(function (a, b) {
+                                return intVal(a) + intVal(b.volume);
+                            }, 0);
 
-                    //    var api = this.api(), data;
-                    //    // Remove the formatting to get integer data for summation
-                    //    var intVal = function (i) {
-                    //        return typeof i === 'string' ?
-                    //            i.replace(/[\$,]/g, '') * 1 :
-                    //            typeof i === 'number' ?
-                    //                i : 0;
-                    //    };
-                    //    //
-                    //    total_tank_b_start = api
-                    //        .data()
-                    //        .reduce(function (a, b) {
-                    //            if (b.type_fuel === "Бензин") {
-                    //                return intVal(a) + intVal(b.start_value);
-                    //            } else { return intVal(a); }
-                    //        }, 0);
+                        total_volume15 = api
+                            .data()
+                            .reduce(function (a, b) {
+                                return intVal(a) + intVal(b.total_volume15);
+                            }, 0);
+                        //
+                        total_mass = api
+                            .data()
+                            .reduce(function (a, b) {
+                                return intVal(a) + intVal(b.total_mass);
+                            }, 0);
 
-                    //    total_tank_dt_start = api
-                    //        .data()
-                    //        .reduce(function (a, b) {
-                    //            if (b.type_fuel === "ДТ") {
-                    //                return intVal(a) + intVal(b.start_value);
-                    //            } else { return intVal(a); }
-                    //        }, 0);
+                        total_mass15 = api
+                            .data()
+                            .reduce(function (a, b) {
+                                return intVal(a) + intVal(b.total_mass15);
+                            }, 0);
 
-                    //    total_tank_g_start = api
-                    //        .data()
-                    //        .reduce(function (a, b) {
-                    //            if (b.type_fuel === "Газ") {
-                    //                return intVal(a) + intVal(b.start_value);
-                    //            } else { return intVal(a); }
-                    //        }, 0);
-                    //    //
-                    //    total_tank_b_stop = api
-                    //        .data()
-                    //        .reduce(function (a, b) {
-                    //            if (b.type_fuel === "Бензин") {
-                    //                return intVal(a) + intVal(b.stop_value);
-                    //            } else { return intVal(a); }
-                    //        }, 0);
-
-                    //    total_tank_dt_stop = api
-                    //        .data()
-                    //        .reduce(function (a, b) {
-                    //            if (b.type_fuel === "ДТ") {
-                    //                return intVal(a) + intVal(b.stop_value);
-                    //            } else { return intVal(a); }
-                    //        }, 0);
-
-                    //    total_tank_g_stop = api
-                    //        .data()
-                    //        .reduce(function (a, b) {
-                    //            if (b.type_fuel === "Газ") {
-                    //                return intVal(a) + intVal(b.stop_value);
-                    //            } else { return intVal(a); }
-                    //        }, 0);
-                    //    //
-                    //    total_tank_b_deff = api
-                    //        .data()
-                    //        .reduce(function (a, b) {
-                    //            if (b.type_fuel === "Бензин") {
-                    //                return intVal(a) + intVal(b.difference_value);
-                    //            } else { return intVal(a); }
-                    //        }, 0);
-
-                    //    total_tank_dt_deff = api
-                    //        .data()
-                    //        .reduce(function (a, b) {
-                    //            if (b.type_fuel === "ДТ") {
-                    //                return intVal(a) + intVal(b.difference_value);
-                    //            } else { return intVal(a); }
-                    //        }, 0);
-
-                    //    total_tank_g_deff = api
-                    //        .data()
-                    //        .reduce(function (a, b) {
-                    //            if (b.type_fuel === "Газ") {
-                    //                return intVal(a) + intVal(b.difference_value);
-                    //            } else { return intVal(a); }
-                    //        }, 0);
-
-
-                    //    $('td#total_tank_b_start').text(total_tank_b_start);
-                    //    $('td#total_tank_b_stop').text(total_tank_b_stop);
-                    //    $('td#total_tank_b_deff').text(total_tank_b_deff);
-
-                    //    $('td#total_tank_dt_start').text(total_tank_dt_start);
-                    //    $('td#total_tank_dt_stop').text(total_tank_dt_stop);
-                    //    $('td#total_tank_dt_deff').text(total_tank_dt_deff);
-
-                    //    $('td#total_tank_g_start').text(total_tank_g_start);
-                    //    $('td#total_tank_g_stop').text(total_tank_g_stop);
-                    //    $('td#total_tank_g_deff').text(total_tank_g_deff);
-
-                    //},
+                        $('td#total_volume').text(total_volume !== null ? Number(total_volume).toFixed(1) : Number(0).toFixed(1));
+                        $('td#total_volume15').text(total_volume15 !== null ? Number(total_volume15).toFixed(1) : Number(0).toFixed(1));
+                        $('td#total_mass').text(total_mass !== null ? Number(total_mass).toFixed(1) : Number(0).toFixed(1));
+                        if (total_mass > 0 && total_volume > 0) {
+                            total_dens = (total_mass / total_volume) * 1000;
+                        }
+                        if (total_mass > 0 && total_volume15 > 0) {
+                            total_dens15 = (total_mass / total_volume15) * 1000;
+                        }          
+                        $('td#total_dens').text(total_dens !== null ? Number(total_dens).toFixed(1) : Number(0).toFixed(1));
+                        $('td#total_dens15').text(total_dens15 !== null ? Number(total_dens15).toFixed(1) : Number(0).toFixed(1));                        
+                    },
                     columns: [
-                        { data: "fuel", title: 'Название ГСМ', width: "50px", orderable: true, searchable: false },
-                        { data: "type_fuel", title: 'Тип ГСМ', width: "50px", orderable: true, searchable: false },
-                        { data: "timestamp", title: 'По состоянию на', width: "50px", orderable: true, searchable: false },
-                        { data: "Lvl", title: 'Уровень (мм)', width: "50px", orderable: true, searchable: false },
-                        { data: "Temp", title: 'Температура', width: "50px", orderable: true, searchable: false },
-                        { data: "Volume", title: 'Объем (л)', width: "50px", orderable: true, searchable: false },
-                        { data: "WaterLvl", title: 'Уровень подт. воды', width: "50px", orderable: true, searchable: false },
-                        { data: "WaterVolume", title: 'Объем подт. воды', width: "50px", orderable: true, searchable: false },
+                        {
+                            data: function (row, type, val, meta) {
+                                return row.dt ? row.dt.replace(/T/g, ' ') : null;
+                            },
+                            title: 'Дата и время', width: "50px", orderable: true, searchable: false
+                        },
+                        {
+                            data: function (row, type, val, meta) {
+                                return row.tank;
+                            },
+                            title: 'Емкость', width: "50px", orderable: true, searchable: false
+                        },
+                        {
+                            data: function (row, type, val, meta) {
+                                return row.total_level;
+                            },
+                            title: 'Уровень емкости (мм)', width: "50px", orderable: true, searchable: false
+                        },
+                        {
+                            data: function (row, type, val, meta) {
+                                return row.level;
+                            },
+                            title: 'Уровень (мм)', width: "50px", orderable: true, searchable: false
+                        },
+                        {
+                            data: function (row, type, val, meta) {
+                                return row.volume !== null ? Number(row.volume).toFixed(1) : Number(0).toFixed(1);
+                            },
+                            title: 'Объем (л)', width: "50px", orderable: true, searchable: false
+                        },
+                        {
+                            data: function (row, type, val, meta) {
+                                return row.volume15 !== null ? Number(row.volume15).toFixed(1) : Number(0).toFixed(1);
+                                
+                            },
+                            title: 'Объем пр. к 15 гр. (л)', width: "50px", orderable: true, searchable: false
+                        },
+                        {
+                            data: function (row, type, val, meta) {
+                                return row.mass !== null ? Number(row.mass).toFixed(1) : Number(0).toFixed(1);
+                            },
+                            title: 'Масса (кг)', width: "50px", orderable: true, searchable: false
+                        },
+                        {
+                            data: function (row, type, val, meta) {
+                                return row.dens !== null ? Number(row.dens).toFixed(1) : Number(0).toFixed(1);
+                            },
+                            title: 'Плотность (кг/м3)', width: "50px", orderable: true, searchable: false
+                        },
+                        {
+                            data: function (row, type, val, meta) {
+                                return row.dens15 !== null ? Number(row.dens15).toFixed(1) : Number(0).toFixed(1);
+                            },
+                            title: 'Плотность пр. к 15 гр. (кг/м3)', width: "50px", orderable: true, searchable: false
+                        },
+                        {
+                            data: function (row, type, val, meta) {
+                                return row.temp !== null ? Number(row.temp).toFixed(1) : Number(0).toFixed(1);
+                            },
+                            title: 'Температура', width: "50px", orderable: true, searchable: false
+                        },
+                        {
+                            data: function (row, type, val, meta) {
+                                return row.water_level !== null ? Number(row.water_level).toFixed(1) : Number(0).toFixed(1);
+                            },
+                            title: 'Уровень подт. воды', width: "50px", orderable: true, searchable: false
+                        }
                     ],
                     dom: 'Bfrtip',
                     stateSave: false,
@@ -262,39 +205,25 @@ $(document).ready(function () {
                         {
                             text: 'Excel',
                             extend: 'excelHtml5',
-                            sheetName: 'Остатки ГСМ',
+                            sheetName: 'Остатки бензола',
                             messageTop: function () {
                                 return '';
                             }
                         },
-                        //{
-                        //    extend: 'colvis',
-                        //    text: 'Выбрать поля таблицы',
-                        //    collectionLayout: 'fixed two-column',
-                        //    //postfixButtons: ['colvisRestore']
-                        //},
-                        //{
-                        //    extend: 'colvisGroup',
-                        //    text: 'Показать все поля',
-                        //    show: ':hidden'
-                        //},
-                        //{
-                        //    extend: 'pageLength',
-                        //}
                     ],
                 });
             },
             // Показать таблицу с данными
             viewTable: function (data_refresh) {
                 LockScreen('Мы обрабатываем ваш запрос...');
-                if (!table_report.list || data_refresh === true || !table_report.date || table_report.date !== date) {
+                if (!table_report.list || data_refresh === true || !table_report.date || table_report.date !== date_curent) {
                     // Обновим данные
-                    getRemainsTanks(
-                        date,
+                    bn.getRemainsTanksOfDate(
+                        date_curent,
                         function (result) {
-                            table_report.date = date;
-                            table_report.list = result;
-                            table_report.loadDataTable(result);
+                            table_report.date = date_curent;
+                            table_report.list = result ? result : [];
+                            table_report.loadDataTable(table_report.list);
                             table_report.obj.draw();
                         }
                     );
@@ -305,28 +234,9 @@ $(document).ready(function () {
             },
             // Загрузить данные
             loadDataTable: function (data) {
-                table_report.list = data;
                 table_report.obj.clear();
-                for (i = 0; i < data.length; i++) {
-                    table_report.obj.row.add(table_report.getRow(data[i]));
-                }
+                table_report.obj.rows.add(data);
                 LockScreenOff();
-                //table_report.initComplete();
-            },
-            // Получить строку для таблицы
-            getRow: function (data) {
-                return {
-                    "id": data.id,
-                    "fuel": data.fuel,
-                    "type": data.type,
-                    "type_fuel": outTypeFuel(data.type),
-                    "timestamp": data.timestamp ? data.timestamp.replace(/T/g, ' ') : null,
-                    "Lvl": data.Lvl ? data.Lvl / 100 : null,
-                    "Temp": data.Temp ? data.Temp : null,
-                    "Volume": data.Volume ? data.Volume : null,
-                    "WaterLvl": data.WaterLvl,
-                    "WaterVolume": data.WaterVolume,
-                };
             },
         };
 

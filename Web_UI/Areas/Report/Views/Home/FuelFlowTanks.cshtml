@@ -17,10 +17,10 @@
         $('#page-width').addClass('average');
     </script>
 
-    <script>
+    @*<script>
         var mode_run = '@System.Configuration.ConfigurationManager.AppSettings["ModeRun"]';
         var logs = '@System.Configuration.ConfigurationManager.AppSettings["Logs"]';
-    </script>
+    </script>*@
 
     @Scripts.Render("~/bundles/Ajax")
     @Scripts.Render("~/bundles/Moment")
@@ -62,7 +62,6 @@
                 </span>
             </div>
         </form>
-
     </div>
     <div class="card-body">
         @*<h5 class="card-title">Primary card title</h5>*@

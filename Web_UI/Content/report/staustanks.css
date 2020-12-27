@@ -1,0 +1,133 @@
+﻿.tanks-all {
+    font-size: 11px;
+}
+
+div {
+    border-radius: 3px;
+}
+
+legend {
+    padding: 0;
+    border: 0;
+}
+
+    legend a {
+        color: indigo;
+    }
+
+legend {
+    display: block;
+    width: 100%;
+    padding: 0;
+    margin-bottom: 0px;
+    font-size: 12px;
+    line-height: inherit;
+    color: #333333;
+    border: 0;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+label {
+    /*display: inline-block;*/
+    margin-bottom: 0px;
+    font-weight: bold;
+    /*color:blue;*/
+}
+
+/*Tanks*/
+
+div.tanks-all {
+    width: auto;
+    margin: 0 10px;
+}
+
+div.tanks-fuel {
+    float: left;
+    border: 1px solid #808080;
+    width: auto;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    padding: 3px;
+}
+
+div.tank {
+    margin-left: 3px;
+    float: left;
+    border: 1px solid #808080;
+    padding: 3px;
+}
+
+table.table-tank {
+    border-collapse: inherit;
+    border-spacing: 1px;
+}
+
+div.tank-value {
+    float: left;
+    border: 1px solid #808080;
+    padding: 3px;
+    margin-top: 4px;
+}
+
+.input-tank-volume {
+    width: 100px;
+    margin: 2px 0px;
+}
+
+div.tank-pb {
+    float: left;
+    padding: 4px 2px;
+}
+
+div.cls {
+    clear: left;
+}
+
+
+
+.progressbar {
+    width: 40px;
+    height: 300px;
+    position: relative;
+    background: url(../../Images/290tvnk.png) no-repeat scroll 0pt 0pt transparent;
+}
+
+.progressbar-value {
+    font-family: Segoe UI,Arial,sans-serif;
+    position: absolute;
+    display: block;
+    margin: 0;
+    border: 0;
+    width: 25px;
+    height: 280px;
+    top: 7px;
+    left: 5px;
+    overflow: hidden;
+    text-indent: -30px;
+    /*background: url(../../Images/Report/minc5g.png) repeat scroll center center #0f0;*/
+}
+
+.progressbar-cover {
+    position: absolute;
+    display: block;
+    width: 25px;
+    height: 280px;
+    border: 0;
+    left: 0;
+    bottom: 0%;
+    background: url(../../Images/1zwge3s.png) repeat-x scroll 0 0 transparent;
+}
+
+#slider {
+    width: 200px;
+    margin-left: 10px;
+}
+
+.error {
+    background-color: lightpink;
+}
+
+.water-error {
+    color: red;
+    /*font-weight:800;*/
+}

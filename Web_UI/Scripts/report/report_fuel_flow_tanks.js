@@ -237,20 +237,6 @@ $(document).ready(function () {
                                 return '';
                             }
                         },
-                        //{
-                        //    extend: 'colvis',
-                        //    text: 'Выбрать поля таблицы',
-                        //    collectionLayout: 'fixed two-column',
-                        //    //postfixButtons: ['colvisRestore']
-                        //},
-                        //{
-                        //    extend: 'colvisGroup',
-                        //    text: 'Показать все поля',
-                        //    show: ':hidden'
-                        //},
-                        //{
-                        //    extend: 'pageLength',
-                        //}
                     ],
                 });
             },
@@ -280,11 +266,7 @@ $(document).ready(function () {
                 table_report.list = data;
                 table_report.obj.clear();
                 table_report.obj.rows.add(data);
-                //for (i = 0; i < data.length; i++) {
-                //    table_report.obj.row.add(table_report.getRow(data[i]));
-                //}
                 LockScreenOff();
-                //table_report.initComplete();
             },
         };
 
@@ -292,5 +274,4 @@ $(document).ready(function () {
     panel_report.init();
     table_report.init();
     panel_report.view_report();
-    //table_report.viewTable(true);
 });

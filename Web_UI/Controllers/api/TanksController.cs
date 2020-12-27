@@ -35,6 +35,21 @@ namespace Web_UI.Controllers.api
         public double? stop_water_level { get; set; }
     }
 
+    public class view_remains
+    {
+        public int tank { get; set; }
+        public DateTime? dt { get; set; }
+        public double? dens { get; set; }
+        public double? dens15 { get; set; }
+        public double? level { get; set; }
+        public double? mass { get; set; }
+        public double? volume { get; set; }
+        public double? volume15 { get; set; }
+        public double? temp { get; set; }
+        public double? total_level { get; set; }
+        public double? water_level { get; set; }
+    }
+
 
     [RoutePrefix("api/tanks")]
     public class TanksController : ApiController
@@ -70,5 +85,78 @@ namespace Web_UI.Controllers.api
             }
         }
 
+        // GET: api/tanks/report/remains_tanks/date/2020-11-27T14:30:40
+        /// <summary>
+        /// Отчет по остаткам
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
+        [Route("report/remains_tanks/date/{date:datetime}")]
+        [ResponseType(typeof(view_remains))]
+        public IHttpActionResult GetRemainsTanksOfDate(DateTime date)
+        {
+            try
+            {
+                //this.ef_contex.Database.CommandTimeout = 300;
+                string sql = "select * from [dbo].[get_remains_tanks](CONVERT(datetime, '" + date.ToString("yyyy-MM-dd HH:mm:ss") + "' ,120))";
+                List<view_remains> list = this.ef_contex.Database.SqlQuery<view_remains>(sql).ToList();
+                //this.ef_contex.Database.CommandTimeout = null;
+                return Ok(list);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        // GET: api/tanks/report/interval_value_tanks1/start/2020-11-26T14:30:19/stop/2020-11-26T14:30:40
+        /// <summary>
+        /// Отчет движение бензола в емкостях
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="stop"></param>
+        /// <returns></returns>
+        [Route("report/interval_value_tanks1/start/{start:datetime}/stop/{stop:datetime}")]
+        [ResponseType(typeof(view_remains))]
+        public IHttpActionResult GetValueTanks1OfInterval(DateTime start, DateTime stop)
+        {
+            try
+            {
+                //this.ef_contex.Database.CommandTimeout = 300;
+                string sql = "select * from [dbo].[get_value_tank1_of_interval](CONVERT(datetime, '" + start.ToString("yyyy-MM-dd HH:mm:ss") + "' ,120), CONVERT(datetime, '" + stop.ToString("yyyy-MM-dd HH:mm:ss") + "' ,120)) ORDER BY tank";
+                List<view_remains> list = this.ef_contex.Database.SqlQuery<view_remains>(sql).ToList();
+                //this.ef_contex.Database.CommandTimeout = null;
+                return Ok(list);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        // GET: api/tanks/report/interval_value_tanks2/start/2020-11-26T14:30:19/stop/2020-11-26T14:30:40
+        /// <summary>
+        /// Отчет движение бензола в емкостях
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="stop"></param>
+        /// <returns></returns>
+        [Route("report/interval_value_tanks2/start/{start:datetime}/stop/{stop:datetime}")]
+        [ResponseType(typeof(view_remains))]
+        public IHttpActionResult GetValueTanks2OfInterval(DateTime start, DateTime stop)
+        {
+            try
+            {
+                //this.ef_contex.Database.CommandTimeout = 300;
+                string sql = "select * from [dbo].[get_value_tank2_of_interval](CONVERT(datetime, '" + start.ToString("yyyy-MM-dd HH:mm:ss") + "' ,120), CONVERT(datetime, '" + stop.ToString("yyyy-MM-dd HH:mm:ss") + "' ,120)) ORDER BY tank";
+                List<view_remains> list = this.ef_contex.Database.SqlQuery<view_remains>(sql).ToList();
+                //this.ef_contex.Database.CommandTimeout = null;
+                return Ok(list);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
     }
 }

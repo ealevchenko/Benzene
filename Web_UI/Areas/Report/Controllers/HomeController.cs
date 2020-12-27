@@ -14,6 +14,17 @@ namespace Web_UI.Areas.report.Controllers
         //    return View();
         //}
 
+        // Суточный
+        public ActionResult DailyAccountingReport()
+        {
+            return View();
+        }
+        // Отчет по выдачам
+        public ActionResult FuelSales()
+        {
+            return View();
+        }
+
         // Отчет по движению топлива в емкостях АЗС
         public ActionResult FuelFlowTanks()
         {
@@ -31,5 +42,10 @@ namespace Web_UI.Areas.report.Controllers
         {
             return View();
         }
+        public ActionResult StatusTanks()
+        {
+            return View();
+        }
+
     }
 }

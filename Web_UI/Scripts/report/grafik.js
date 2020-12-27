@@ -1,15 +1,15 @@
 ﻿// Загрузка документа
 $(document).ready(function () {
     var date_curent = moment().set({ 'hour': 0, 'minute': 0, 'second': 0, 'millisecond': 0 }),
-        date_start = moment().set({ 'hour': 0, 'minute': 0, 'second': 0, 'millisecond': 0 })._d,
-        date_stop = moment().set({ 'hour': 23, 'minute': 59, 'second': 59, 'millisecond': 0 })._d,
-        //tsk = new TSK_API(), // Создадим класс TSK_API
+        date_start = moment().set({ 'hour': 7, 'minute': 0, 'second': 0, 'millisecond': 0 })._d,
+        date_stop = moment().set({ 'hour': 18, 'minute': 59, 'second': 59, 'millisecond': 0 })._d,
+        bn = new BENZENE_API(), // Создадим класс TSK_API
         panel_report = {
             bt_left: $('button#bt-left'),
             bt_right: $('button#bt-right'),
-            bt_view: $('button#bt-view'),
-            select_tank: $('select#select-smena'),
-            span_range_date: $('span#select-range-date'),
+            select_sm: $('select#select-smena'),
+            select_tank: $('select#select-tanks'),
+            //span_range_date: $('span#select-range-date'),
             input_date: $('input#date'),
             input_data_start: $('input#date-start'),
             input_data_stop: $('input#date-stop'),
@@ -28,23 +28,26 @@ $(document).ready(function () {
                     panel_report.obj_date.data('dateRangePicker').setDateRange(moment(date_curent).format('DD.MM.YYYY HH:mm:'), moment(date_curent).format('DD.MM.YYYY HH:mm:'), true);
                     panel_report.view_report();
                 });
-
-                panel_report.bt_view.on('click', function () {
-                    panel_report.view_report();
-                });
+                // Настроим выбор времени
+                panel_report.select_sm = cd_initSelect(
+                    panel_report.select_sm,
+                    { width: 200 },
+                    [{ value: 1, text: "Смена Д (07:00-18:59)" }, { value: 2, text: "Смена Н (19:00-06:59)" }],
+                    null,
+                    1,
+                    function (event, ui) {
+                        event.preventDefault();
+                        // Обработать выбор смены
+                        panel_report.view_report();
+                    },
+                    null);
                 // Настроим выбор времени
                 panel_report.select_tank = cd_initSelect(
                     panel_report.select_tank,
                     { width: 200 },
                     [
-                        { value: 1, text: "АИ95 'евро'" },
-                        { value: 2, text: "АИ92" },
-                        { value: 3, text: "АИ98" },
-                        { value: 4, text: "АИ95" },
-                        { value: 5, text: "ДТ" },
-                        { value: 6, text: "ДТ 'евро'" },
-                        { value: 7, text: "СПГ(1)" },
-                        { value: 8, text: "СПГ(2)" },
+                        { value: 1, text: "Т1" },
+                        { value: 2, text: "Т2" },
                     ],
                     null,
                     1,
@@ -67,12 +70,11 @@ $(document).ready(function () {
                         date_curent = obj.date1;
                     })
                     .bind('datepicker-closed', function () {
-                        //panel_report.view_report();
-                        //panel_report.select_tank.prop('disabled', false);
+                        panel_report.view_report();
+                        //panel_report.select_sm.prop('disabled', false);
                         //panel_report.bt_left.prop('disabled', false);
                         //panel_report.bt_right.prop('disabled', false);
                     });
-
                 // Выставим текущую дату
                 panel_report.obj_date.data('dateRangePicker').setDateRange(moment(date_curent).format('DD.MM.YYYY HH:mm:'), moment(date_curent).format('DD.MM.YYYY HH:mm:'), true);
                 // настроим компонент выбора времени
@@ -96,24 +98,21 @@ $(document).ready(function () {
                 //        date_stop = obj.date2;
                 //    })
                 //    .bind('datepicker-closed', function () {
-                //        table_report.viewTable(false);
-                //        //panel_report.select_tank.prop('disabled', true);
-                //        //panel_report.bt_left.prop('disabled', true);
-                //        //panel_report.bt_right.prop('disabled', true);
+                //        trend_tank.view(true);
+                //        panel_report.select_sm.prop('disabled', true);
+                //        panel_report.bt_left.prop('disabled', true);
+                //        panel_report.bt_right.prop('disabled', true);
                 //    });
-                //var date_curent_start = moment({ y: date_start.getFullYear(), M: date_start.getMonth(), d: date_start.getDate(), h: date_start.getHours(), m: date_start.getMinutes() });
-                //var date_curent_stop = moment({ y: date_stop.getFullYear(), M: date_stop.getMonth(), d: date_stop.getDate(), h: date_stop.getHours(), m: date_stop.getMinutes() });
-                //panel_report.obj_date_range.data('dateRangePicker').setDateRange(date_curent_start.format("DD.MM.YYYY HH:mm"), date_curent_stop.format("DD.MM.YYYY HH:mm"), true);
             },
             view_report: function () {
-                //if (panel_report.select_tank.val() === "2") {
-                date_start = moment(date_curent).set({ 'hour': 0, 'minute': 0, 'second': 0, 'millisecond': 0 })._d;
-                date_stop = moment(date_curent).set({ 'hour': 23, 'minute': 59, 'second': 59, 'millisecond': 0 })._d;
-                //}
-                //if (panel_report.select_tank.val() === "1") {
-                //    date_start = moment(date_curent).set({ 'hour': 7, 'minute': 0, 'second': 0, 'millisecond': 0 })._d;
-                //    date_stop = moment(date_curent).set({ 'hour': 18, 'minute': 59, 'second': 59, 'millisecond': 0 })._d;
-                //}
+                if (panel_report.select_sm.val() === "2") {
+                    date_start = moment(date_curent).set({ 'hour': 19, 'minute': 0, 'second': 0, 'millisecond': 0 })._d;
+                    date_stop = moment(date_curent).add('days', 1).set({ 'hour': 6, 'minute': 59, 'second': 59, 'millisecond': 0 })._d;
+                }
+                if (panel_report.select_sm.val() === "1") {
+                    date_start = moment(date_curent).set({ 'hour': 7, 'minute': 0, 'second': 0, 'millisecond': 0 })._d;
+                    date_stop = moment(date_curent).set({ 'hour': 18, 'minute': 59, 'second': 59, 'millisecond': 0 })._d;
+                }
                 //panel_report.obj_date_range.data('dateRangePicker').setDateRange(moment(date_start).format('DD.MM.YYYY HH:mm:'), moment(date_stop).format('DD.MM.YYYY HH:mm:'), true);
                 trend_tank.view(true);
             }
@@ -142,11 +141,11 @@ $(document).ready(function () {
                     //trend_tank.chart.colors.step = 2;
 
                     trend_tank.chart.colors.list = [
-                        am4core.color("#0026ff"),
-                        am4core.color("#ff6a00"),
-                        am4core.color("#ff0000"),
-                        am4core.color("#b200ff"),
-                        am4core.color("#000000"),
+                        //am4core.color("#0026ff"),
+                        //am4core.color("#ff6a00"),
+                        //am4core.color("#ff0000"),
+                        //am4core.color("#b200ff"),
+                        //am4core.color("#000000"),
                         //am4core.color("#0c7a1a"),
                     ];
 
@@ -164,28 +163,33 @@ $(document).ready(function () {
                         switch (field) {
                             case "level":
                                 valueAxis.min = 0;
-                                valueAxis.max = 2500;//3000
+                                valueAxis.max = 3800;//3000
                                 break;
                             case "volume":
                                 valueAxis.min = 0;
-                                valueAxis.max = 20000; //80000
+                                valueAxis.max = 200000; //80000
                                 break;
-                            //case "dens":
-                            //    valueAxis.min = 700;
-                            //    valueAxis.max = 900;
-                            //    break;
-                            //case "mass":
-                            //    valueAxis.min = 0;
-                            //    valueAxis.max = 70000;
-                            //    break;
+                            case "volume15":
+                                valueAxis.min = 0;
+                                valueAxis.max = 200000; //80000
+                                break;
+                            case "dens":
+                                valueAxis.min = 700;
+                                valueAxis.max = 1000;
+                                break;
+                            case "dens15":
+                                valueAxis.min = 700;
+                                valueAxis.max = 1000;
+                                break;
+                            case "mass":
+                                valueAxis.min = 0;
+                                valueAxis.max = 200000;
+                                break;
                             case "temp":
                                 valueAxis.min = -20;
                                 valueAxis.max = 50;
                                 break;
                             case "water_level":
-                                valueAxis.min = 0;
-                                break;
-                            case "water_volume":
                                 valueAxis.min = 0;
                                 break;
                         }
@@ -249,11 +253,12 @@ $(document).ready(function () {
 
                     createAxisAndSeries("level", "Уровень (мм)", false, "circle");
                     createAxisAndSeries("volume", "Объем (л)", false, "triangle");
-                    //createAxisAndSeries("dens", "Плотность (кг/м3)", true, "rectangle");
-                    //createAxisAndSeries("mass", "Масса (кг)", false, "rectangle");
+                    createAxisAndSeries("volume15", "Объем (л)", false, "triangle");
+                    createAxisAndSeries("dens", "Плотность (кг/м3)", true, "rectangle");
+                    createAxisAndSeries("dens15", "Плотность (кг/м3)", true, "rectangle");
+                    createAxisAndSeries("mass", "Масса (кг)", false, "rectangle");
                     createAxisAndSeries("temp", "Температура (град. С)", true, "rectangle");
                     createAxisAndSeries("water_level", "Уровень подт. вод. (мм)", true, "rectangle");
-                    createAxisAndSeries("water_volume", "Объем подт. вод.", true, "rectangle");
                     // Add legend
                     //trend_tank.chart.legend = new am4charts.Legend();
 
@@ -274,45 +279,6 @@ $(document).ready(function () {
                 }); // end am4core.ready()
             },
 
-            //initTable: function () {
-            //    trend_tank.table = $('#table-report').DataTable({
-            //        //"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
-            //        "paging": false,
-            //        "ordering": true,
-            //        "info": false,
-            //        "select": true,
-            //        "autoWidth": false,
-            //        //"filter": true,
-            //        //"scrollY": "600px",
-            //        //"scrollX": true,
-            //        //language: language_table(langs),
-            //        jQueryUI: true,
-            //        "createdRow": function (row, data, index) {
-            //            //$(row).attr('id', data.id);
-            //        },
-            //        columns: [
-            //            { data: "dt", title: "Дата и время", width: "150px", orderable: true, searchable: false },
-            //            { data: "level", title: "Уровень (мм)", width: "50px", orderable: true, searchable: false },
-            //            { data: "volume", title: "Объем (л)", width: "50px", orderable: true, searchable: false },
-            //            { data: "dens", title: "Плотность (кг\\м3)", width: "50px", orderable: true, searchable: false },
-            //            { data: "mass", title: "Масса (кг)", width: "50px", orderable: true, searchable: false },
-            //            { data: "temp", title: "Температура (град. С)", width: "50px", orderable: true, searchable: false },
-            //            { data: "water_level", title: "Уровень подт. вод (мм)", width: "50px", orderable: true, searchable: false }
-            //        ],
-            //        dom: 'Bfrtip',
-            //        buttons: [
-            //            'copyHtml5',
-            //            'excelHtml5'
-            //        ]
-            //    });
-
-            //},
-            // Инициализация общая
-            //init: function () {
-            //    trend_tank.initTrend();
-            //    trend_tank.initTable();
-            //},
-            // Показать данные
             view: function () {
                 var num = panel_report.select_tank.val();
 
@@ -320,51 +286,75 @@ $(document).ready(function () {
 
                 if (!trend_tank.list || num !== trend_tank.num || Date.parse(date_start) !== Date.parse(trend_tank.start) || Date.parse(date_stop) !== Date.parse(trend_tank.stop)) {
                     LockScreen('Мы формируем ваш график...');
-                    getTankOfPeriod(
-                        num,
-                        date_start,
-                        date_stop,
-                        function (data) {
-                            trend_tank.list = [];
-                            for (i = 0; i < data.length; i++) {
-                                trend_tank.list.push({
-                                    date: Date.parse(data[i].timestamp),
-                                    level: data[i].Lvl / 100,
-                                    volume: data[i].Volume,
-                                    temp: data[i].Temp,
-                                    water_level: data[i].WaterLvl,
-                                    water_volume: data[i].WaterVolume
-                                });
-                            }
-                            trend_tank.start = date_start;
-                            trend_tank.stop = date_stop;
-                            trend_tank.num = num;
-                            // Обновим график
-                            trend_tank.chart.data = trend_tank.list;
+                    trend_tank.num = num;
+                    if (num === "1") {
+                        bn.getValueTanks1OfInterval(
+                            date_start,
+                            date_stop,
+                            function (data) {
+                                trend_tank.view_trend(data);
+                                LockScreenOff();
+                            });
+                    }
+                    if (num === "2") {
+                        bn.getValueTanks2OfInterval(
+                            date_start,
+                            date_stop,
+                            function (data) {
+                                trend_tank.view_trend(data);
+                                LockScreenOff();
+                            });
+                    }
 
-
-                            //trend_tank.table.clear();
-                            //for (it = 0; it < trend_tank.list.length; it++) {
-                            //    trend_tank.table.row.add({
-                            //        //"date": toISOStringTZ(trend_tank.list[i].date),
-                            //        "dt": toISOStringTZ(new Date(trend_tank.list[it].date)),
-                            //        //"dt": toISOStringTZ(trend_tank.list[it].date),
-                            //        "level": trend_tank.list[it].level,
-                            //        "volume": trend_tank.list[it].volume,
-                            //        "dens": trend_tank.list[it].dens,
-                            //        "mass": trend_tank.list[it].mass,
-                            //        "temp": trend_tank.list[it].temp,
-                            //        "water_level": trend_tank.list[it].water_level
-
-                            //    });
-                            //}
-                            //trend_tank.table.draw(true);
-                            LockScreenOff();
-
-                        });
                 } else {
                     //trend_tank.viewTrend();
                 }
+            },
+
+            view_trend: function (data) {
+                trend_tank.list = [];
+                for (i = 0; i < data.length; i++) {
+                    trend_tank.list.push({
+                        date: Date.parse(data[i].dt),
+                        level: data[i].level,
+                        volume: data[i].Volume,
+                        volume15: data[i].Volume15,
+                        dens: data[i].dens,
+                        dens15: data[i].dens15,
+                        mass: data[i].mass,
+                        temp: data[i].temp,
+                        water_level: data[i].water_level,
+
+                    });
+                }
+                trend_tank.start = date_start;
+                trend_tank.stop = date_stop;
+
+                // Обновим график
+                trend_tank.chart.data = trend_tank.list;
+
+
+                //trend_tank.table.clear();
+                //for (it = 0; it < trend_tank.list.length; it++) {
+                //    trend_tank.table.row.add({
+                //        //"date": toISOStringTZ(trend_tank.list[i].date),
+                //        "dt": toISOStringTZ(new Date(trend_tank.list[it].date)),
+                //        //"dt": toISOStringTZ(trend_tank.list[it].date),
+                //        "level": trend_tank.list[it].level,
+                //        "volume": trend_tank.list[it].volume,
+                //        "dens": trend_tank.list[it].dens,
+                //        "mass": trend_tank.list[it].mass,
+                //        "temp": trend_tank.list[it].temp,
+                //        "water_level": trend_tank.list[it].water_level
+
+                //    });
+                //}
+                //trend_tank.table.draw(true);
+                //LockScreenOff();
+
+                //if (typeof callback === 'function') {
+                //    callback();
+                //}
             }
         };
 
@@ -372,5 +362,5 @@ $(document).ready(function () {
     panel_report.init();
     trend_tank.initTrend();
     //table_report.init();
-    //table_report.viewTable(true);
+    trend_tank.view(true);
 });

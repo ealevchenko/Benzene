@@ -160,6 +160,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Areas\Report\Controllers\HomeController.cs" />
     <Compile Include="Areas\Report\ReportAreaRegistration.cs" />
+    <Compile Include="Controllers\api\SalesController.cs" />
     <Compile Include="Controllers\api\TanksController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
@@ -340,6 +341,7 @@
     <Content Include="Content\report\global.css" />
     <Content Include="Content\report\homemenu.css" />
     <Content Include="Content\report\report.css" />
+    <Content Include="Content\report\staustanks.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -383,7 +385,10 @@
     <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Images\1zwge3s.png" />
+    <Content Include="Images\290tvnk.png" />
     <Content Include="Images\global.jpg" />
+    <Content Include="Images\minc5g.png" />
     <Content Include="Images\pattern.png" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
     <Content Include="Areas\HelpPage\Views\Shared\_Layout.cshtml" />
@@ -620,7 +625,10 @@
     <Content Include="Scripts\popper.js" />
     <Content Include="Scripts\popper.min.js" />
     <Content Include="Scripts\report\grafik.js" />
+    <Content Include="Scripts\report\reports_status_tanks.js" />
+    <Content Include="Scripts\report\report_daily.js" />
     <Content Include="Scripts\report\report_fuel_flow_tanks.js" />
+    <Content Include="Scripts\report\report_fuel_sales.js" />
     <Content Include="Scripts\report\report_remains_tank.js" />
     <Content Include="Scripts\shared\common.js" />
     <Content Include="Scripts\src\index.js" />
@@ -719,6 +727,9 @@
     <Content Include="Content\DataTables\media\images\Sorting icons.psd" />
     <Content Include="Content\DataTables\extensions\Buttons\css\mixins.scss" />
     <Content Include="Content\DataTables\extensions\Buttons\css\common.scss" />
+    <Content Include="Areas\Report\Views\Home\FuelSales.cshtml" />
+    <Content Include="Areas\Report\Views\Home\StatusTanks.cshtml" />
+    <Content Include="Areas\Report\Views\Home\DailyAccountingReport.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Scripts\amcharts4\themes\amcharts.js.map" />
     <Content Include="Scripts\amcharts4\themes\amchartsdark.js.map" />
