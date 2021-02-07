@@ -163,15 +163,15 @@ $(document).ready(function () {
                         switch (field) {
                             case "level":
                                 valueAxis.min = 0;
-                                valueAxis.max = 3800;//3000
+                                valueAxis.max = 7000;//3000
                                 break;
                             case "volume":
                                 valueAxis.min = 0;
-                                valueAxis.max = 200000; //80000
+                                valueAxis.max = 350000; //80000
                                 break;
                             case "volume15":
                                 valueAxis.min = 0;
-                                valueAxis.max = 200000; //80000
+                                valueAxis.max = 350000; //80000
                                 break;
                             case "dens":
                                 valueAxis.min = 700;
@@ -183,7 +183,7 @@ $(document).ready(function () {
                                 break;
                             case "mass":
                                 valueAxis.min = 0;
-                                valueAxis.max = 200000;
+                                valueAxis.max = 350000;
                                 break;
                             case "temp":
                                 valueAxis.min = -20;
@@ -191,6 +191,7 @@ $(document).ready(function () {
                                 break;
                             case "water_level":
                                 valueAxis.min = 0;
+                                valueAxis.max = 500;
                                 break;
                         }
                         if (field === "water_level" || field === "volume") valueAxis.min = 0;
@@ -317,8 +318,8 @@ $(document).ready(function () {
                     trend_tank.list.push({
                         date: Date.parse(data[i].dt),
                         level: data[i].level,
-                        volume: data[i].Volume,
-                        volume15: data[i].Volume15,
+                        volume: data[i].volume,
+                        volume15: data[i].volume15,
                         dens: data[i].dens,
                         dens15: data[i].dens15,
                         mass: data[i].mass,

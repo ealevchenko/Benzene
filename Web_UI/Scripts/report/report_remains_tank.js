@@ -141,13 +141,13 @@ $(document).ready(function () {
                         },
                         {
                             data: function (row, type, val, meta) {
-                                return row.total_level;
+                                return row.total_level !== null ? Number(row.total_level).toFixed(2) : Number(0).toFixed(2);
                             },
                             title: 'Уровень емкости (мм)', width: "50px", orderable: true, searchable: false
                         },
                         {
                             data: function (row, type, val, meta) {
-                                return row.level;
+                                return row.level !== null ? Number(row.level).toFixed(2) : Number(0).toFixed(2);
                             },
                             title: 'Уровень (мм)', width: "50px", orderable: true, searchable: false
                         },
@@ -172,13 +172,13 @@ $(document).ready(function () {
                         },
                         {
                             data: function (row, type, val, meta) {
-                                return row.dens !== null ? Number(row.dens).toFixed(1) : Number(0).toFixed(1);
+                                return row.dens !== null ? Number(row.dens).toFixed(4) : Number(0).toFixed(4);
                             },
                             title: 'Плотность (кг/м3)', width: "50px", orderable: true, searchable: false
                         },
                         {
                             data: function (row, type, val, meta) {
-                                return row.dens15 !== null ? Number(row.dens15).toFixed(1) : Number(0).toFixed(1);
+                                return row.dens15 !== null ? Number(row.dens15).toFixed(4) : Number(0).toFixed(4);
                             },
                             title: 'Плотность пр. к 15 гр. (кг/м3)', width: "50px", orderable: true, searchable: false
                         },

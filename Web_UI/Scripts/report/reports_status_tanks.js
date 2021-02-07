@@ -13,7 +13,7 @@ var showView = function () {
                 var h = result[ir].level !== null ? Number(result[ir].level).toFixed(2) : 0.00;
                 var hp = 0;
                 if (tl !== null && Number(tl) > 0 && h !== null) {
-                    hp = (Number(h) * 100.0) / Number(tl);
+                    hp = (Number(h) * 100.0) / Number(tank==="1"? 6000 : 6900);
                 }
                 hp = hp !== null ? Number(hp).toFixed(2) : 0.00;
                 var v = result[ir].volume !== null ? Number(result[ir].volume).toFixed(2) : 0.00;
