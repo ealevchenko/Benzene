@@ -143,13 +143,13 @@ $(document).ready(function () {
                         total_volume = api
                             .data()
                             .reduce(function (a, b) {
-                                return intVal(a) + intVal(b.volume);
+                                return intVal(a) + intVal(b.outed_volume);
                             }, 0);
                         //
                         total_mass = api
                             .data()
                             .reduce(function (a, b) {
-                                return intVal(a) + intVal(b.mass);
+                                return intVal(a) + intVal(b.outed_mass);
                             }, 0);
 
                         $('td#total_volume').text(Number(total_volume).toFixed(1));
@@ -174,31 +174,25 @@ $(document).ready(function () {
                         },
                         {
                             data: function (row, type, val, meta) {
-                                //return row.stop_volume !== null ? Number(row.stop_volume).toFixed(1) : Number(0).toFixed(1);
-                                return '1,2';
+                                return row.outed_tank;
                             },
                             title: 'Номер резервуара', width: "50px", orderable: false, searchable: false, className: 'td-number'
                         },
                         {
                             data: function (row, type, val, meta) {
-                                return row.volume !== null ? Number(row.volume).toFixed(1) : Number(0).toFixed(1);
+                                return row.outed_volume !== null ? Number(row.outed_volume).toFixed(1) : Number(0).toFixed(1);
                             },
                             title: 'Выдано (л)', width: "50px", orderable: false, searchable: false, className: 'td-number'
                         },
                         {
                             data: function (row, type, val, meta) {
-                                return row.mass !== null ? Number(row.mass).toFixed(1) : Number(0).toFixed(1);
+                                return row.outed_mass !== null ? Number(row.outed_mass).toFixed(1) : Number(0).toFixed(1);
                             },
                             title: 'Выдано (кг)', width: "50px", orderable: false, searchable: false, className: 'td-number'
                         },
                         {
                             data: function (row, type, val, meta) {
-                                if (row.volume && row.volume > 0 && row.mass && row.mass > 0) {
-                                    var dens = (row.mass / row.volume) * 1000;
-                                    return dens !== null ? Number(dens).toFixed(1) : Number(0).toFixed(1);
-                                } else {
-                                    return Number(0).toFixed(1);
-                                }
+                                return row.outed_dens !== null ? Number(row.outed_dens).toFixed(1) : Number(0).toFixed(1);
                             },
                             title: 'Плотность (кг/м3)', width: "50px", orderable: false, searchable: false, className: 'td-number'
                         }
