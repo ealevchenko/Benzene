@@ -77,7 +77,7 @@ $(document).ready(function () {
                         var total_volume = 0;
                         var total_volume15 = 0;
                         var total_mass = 0;
-                        var total_mass15 = 0;
+/*                        var total_mass15 = 0;*/
                         var total_dens = 0;
                         var total_dens15 = 0;
 
@@ -99,32 +99,32 @@ $(document).ready(function () {
                         total_volume15 = api
                             .data()
                             .reduce(function (a, b) {
-                                return intVal(a) + intVal(b.total_volume15);
+                                return intVal(a) + intVal(b.volume15);
                             }, 0);
                         //
                         total_mass = api
                             .data()
                             .reduce(function (a, b) {
-                                return intVal(a) + intVal(b.total_mass);
+                                return intVal(a) + intVal(b.mass);
                             }, 0);
 
-                        total_mass15 = api
-                            .data()
-                            .reduce(function (a, b) {
-                                return intVal(a) + intVal(b.total_mass15);
-                            }, 0);
+                        //total_mass15 = api
+                        //    .data()
+                        //    .reduce(function (a, b) {
+                        //        return intVal(a) + intVal(b.total_mass15);
+                        //    }, 0);
 
-                        $('td#total_volume').text(total_volume !== null ? Number(total_volume).toFixed(1) : Number(0).toFixed(1));
-                        $('td#total_volume15').text(total_volume15 !== null ? Number(total_volume15).toFixed(1) : Number(0).toFixed(1));
-                        $('td#total_mass').text(total_mass !== null ? Number(total_mass).toFixed(1) : Number(0).toFixed(1));
+                        $('td#total_volume').text(total_volume !== null ? Number(total_volume).toFixed(2) : Number(0).toFixed(2));
+                        $('td#total_volume15').text(total_volume15 !== null ? Number(total_volume15).toFixed(2) : Number(0).toFixed(2));
+                        $('td#total_mass').text(total_mass !== null ? Number(total_mass).toFixed(2) : Number(0).toFixed(2));
                         if (total_mass > 0 && total_volume > 0) {
                             total_dens = (total_mass / total_volume) * 1000;
                         }
                         if (total_mass > 0 && total_volume15 > 0) {
                             total_dens15 = (total_mass / total_volume15) * 1000;
                         }          
-                        $('td#total_dens').text(total_dens !== null ? Number(total_dens).toFixed(1) : Number(0).toFixed(1));
-                        $('td#total_dens15').text(total_dens15 !== null ? Number(total_dens15).toFixed(1) : Number(0).toFixed(1));                        
+                        $('td#total_dens').text(total_dens !== null ? Number(total_dens).toFixed(2) : Number(0).toFixed(2));
+                        $('td#total_dens15').text(total_dens15 !== null ? Number(total_dens15).toFixed(2) : Number(0).toFixed(2));                        
                     },
                     columns: [
                         {
@@ -153,20 +153,20 @@ $(document).ready(function () {
                         },
                         {
                             data: function (row, type, val, meta) {
-                                return row.volume !== null ? Number(row.volume).toFixed(1) : Number(0).toFixed(1);
+                                return row.volume !== null ? Number(row.volume).toFixed(2) : Number(0).toFixed(2);
                             },
                             title: 'Объем (л)', width: "50px", orderable: true, searchable: false
                         },
                         {
                             data: function (row, type, val, meta) {
-                                return row.volume15 !== null ? Number(row.volume15).toFixed(1) : Number(0).toFixed(1);
+                                return row.volume15 !== null ? Number(row.volume15).toFixed(2) : Number(0).toFixed(2);
                                 
                             },
                             title: 'Объем пр. к 15 гр. (л)', width: "50px", orderable: true, searchable: false
                         },
                         {
                             data: function (row, type, val, meta) {
-                                return row.mass !== null ? Number(row.mass).toFixed(1) : Number(0).toFixed(1);
+                                return row.mass !== null ? Number(row.mass).toFixed(2) : Number(0).toFixed(2);
                             },
                             title: 'Масса (кг)', width: "50px", orderable: true, searchable: false
                         },

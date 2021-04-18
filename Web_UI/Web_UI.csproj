@@ -729,7 +729,7 @@
     <Content Include="Content\DataTables\extensions\Buttons\css\common.scss" />
     <Content Include="Areas\Report\Views\Home\FuelSales.cshtml" />
     <Content Include="Areas\Report\Views\Home\StatusTanks.cshtml" />
-    <Content Include="Areas\Report\Views\Home\DailyAccountingReport.cshtml" />
+    <Content Include="Areas\Report\Views\Home\DailyReport.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Scripts\amcharts4\themes\amcharts.js.map" />
     <Content Include="Scripts\amcharts4\themes\amchartsdark.js.map" />

@@ -15,7 +15,7 @@ namespace Web_UI.Areas.report.Controllers
         //}
 
         // Суточный
-        public ActionResult DailyAccountingReport()
+        public ActionResult DailyReport()
         {
             return View();
         }
