@@ -160,6 +160,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Areas\Report\Controllers\HomeController.cs" />
     <Compile Include="Areas\Report\ReportAreaRegistration.cs" />
+    <Compile Include="Controllers\api\DailyController.cs" />
     <Compile Include="Controllers\api\SalesController.cs" />
     <Compile Include="Controllers\api\TanksController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -321,6 +322,8 @@
     <Content Include="Content\DataTables\media\css\dataTables.semanticui.min.css" />
     <Content Include="Content\DataTables\media\css\jquery.dataTables.css" />
     <Content Include="Content\DataTables\media\css\jquery.dataTables.min.css" />
+    <Content Include="Content\DataTables\media\images\details_close.png" />
+    <Content Include="Content\DataTables\media\images\details_open.png" />
     <Content Include="Content\DataTables\media\images\favicon.ico" />
     <Content Include="Content\DataTables\media\images\sort_asc.png" />
     <Content Include="Content\DataTables\media\images\sort_asc_disabled.png" />

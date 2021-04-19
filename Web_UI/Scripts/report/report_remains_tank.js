@@ -116,15 +116,15 @@ $(document).ready(function () {
 
                         $('td#total_volume').text(total_volume !== null ? Number(total_volume).toFixed(2) : Number(0).toFixed(2));
                         $('td#total_volume15').text(total_volume15 !== null ? Number(total_volume15).toFixed(2) : Number(0).toFixed(2));
-                        $('td#total_mass').text(total_mass !== null ? Number(total_mass).toFixed(2) : Number(0).toFixed(2));
+                        $('td#total_mass').text(total_mass !== null ? Number(total_mass/1000).toFixed(2) : Number(0).toFixed(2));
                         if (total_mass > 0 && total_volume > 0) {
-                            total_dens = (total_mass / total_volume) * 1000;
+                            total_dens = (total_mass / total_volume);
                         }
                         if (total_mass > 0 && total_volume15 > 0) {
-                            total_dens15 = (total_mass / total_volume15) * 1000;
+                            total_dens15 = (total_mass / total_volume15);
                         }          
-                        $('td#total_dens').text(total_dens !== null ? Number(total_dens).toFixed(2) : Number(0).toFixed(2));
-                        $('td#total_dens15').text(total_dens15 !== null ? Number(total_dens15).toFixed(2) : Number(0).toFixed(2));                        
+                        $('td#total_dens').text(total_dens !== null ? Number(total_dens).toFixed(4) : Number(0).toFixed(4));
+                        $('td#total_dens15').text(total_dens15 !== null ? Number(total_dens15).toFixed(4) : Number(0).toFixed(4));                        
                     },
                     columns: [
                         {
@@ -166,9 +166,9 @@ $(document).ready(function () {
                         },
                         {
                             data: function (row, type, val, meta) {
-                                return row.mass !== null ? Number(row.mass).toFixed(2) : Number(0).toFixed(2);
+                                return row.mass !== null ? Number(row.mass/1000).toFixed(2) : Number(0).toFixed(2);
                             },
-                            title: 'Масса (кг)', width: "50px", orderable: true, searchable: false
+                            title: 'Масса (т)', width: "50px", orderable: true, searchable: false
                         },
                         {
                             data: function (row, type, val, meta) {

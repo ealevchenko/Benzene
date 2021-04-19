@@ -18,9 +18,9 @@
     </script>
 
     @*<script>
-        var mode_run = '@System.Configuration.ConfigurationManager.AppSettings["ModeRun"]';
-        var logs = '@System.Configuration.ConfigurationManager.AppSettings["Logs"]';
-    </script>*@
+            var mode_run = '@System.Configuration.ConfigurationManager.AppSettings["ModeRun"]';
+            var logs = '@System.Configuration.ConfigurationManager.AppSettings["Logs"]';
+        </script>*@
 
     @Scripts.Render("~/bundles/Ajax")
     @Scripts.Render("~/bundles/Moment")
@@ -66,16 +66,22 @@
     </div>
     <div class="card-body">
         @*<h5 class="card-title">Primary card title</h5>*@
-        <table class='display compact hover row-border' id="table-report" style="width:100%;">
-            <tfoot>
-                <tr>
-                    <th class="title-foot" colspan="3">ИТОГО:</th>
-                    <td class="total-foot" id="total_volume"></td>
-                    <td class="total-foot" id="total_mass"></td>
-                    <td class="total-foot" id="total_dens"></td>
-                </tr>
-            </tfoot>
-        </table>
+        <div class="row">
+            <div class="col-xl-12">
+                <table class='display compact cell-border row-border hover' id="table-report" style="width:100%;">
+                    <tfoot>
+                        <tr>
+                            <th class="title-foot" colspan="3">ИТОГО:</th>
+                            <td class="total-foot" id="total_volume"></td>
+                            <td class="total-foot" id="total_volume15"></td>
+                            <td class="total-foot" id="total_mass"></td>
+                            <td class="total-foot" id="total_dens"></td>
+                            <td class="total-foot" id="total_dens15"></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
 

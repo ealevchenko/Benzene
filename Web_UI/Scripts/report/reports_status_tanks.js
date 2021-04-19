@@ -18,9 +18,9 @@ var showView = function () {
                 hp = hp !== null ? Number(hp).toFixed(2) : 0.00;
                 var v = result[ir].volume !== null ? Number(result[ir].volume).toFixed(2) : 0.00;
                 var v15 = result[ir].volume !== null ? Number(result[ir].volume15).toFixed(2) : 0.00;
-                var m = result[ir].mass !== null ? Number(result[ir].mass).toFixed(3) : 0.000;
-                var pd = result[ir].dens !== null ? Number(result[ir].dens).toFixed(3) : 0.000; //?????
-                var ps = result[ir].dens_avg !== null ? Number(result[ir].dens15).toFixed(3) : 0.000;
+                var m = result[ir].mass !== null ? Number(result[ir].mass/1000).toFixed(2) : 0.00;
+                var pd = result[ir].dens !== null ? Number(result[ir].dens).toFixed(4) : 0.0000; //?????
+                var ps = result[ir].dens_avg !== null ? Number(result[ir].dens15).toFixed(4) : 0.0000;
                 var t = result[ir].temp !== null ? (Number(result[ir].temp)).toFixed(2) : 0.00;
                 var w = result[ir].water_level !== null ? (Number(result[ir].water_level)).toFixed(2) : 0.00;
                 $('input#tank-' + tank + '-hp').val(hp);

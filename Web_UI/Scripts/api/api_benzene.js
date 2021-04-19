@@ -150,3 +150,49 @@ BENZENE_API.prototype.getValueTanks2OfInterval = function (start, stop, callback
         },
     });
 };
+// Отчет суточный
+BENZENE_API.prototype.getDailyReportOfInterval = function (start, stop, callback) {
+    $.ajax({
+        type: 'GET',
+        url: '../../api/web/report/daily/all/start/' + toISOStringTZ(start).substring(0, 19) + '/stop/' + toISOStringTZ(stop).substring(0, 19),
+        async: true,
+        dataType: 'json',
+        beforeSend: function () {
+            AJAXBeforeSend();
+        },
+        success: function (data) {
+            if (typeof callback === 'function') {
+                callback(data);
+            }
+        },
+        error: function (x, y, z) {
+            OnAJAXError("BENZENE_API.getDailyReportOfInterval", x, y, z);
+        },
+        complete: function () {
+            AJAXComplete();
+        },
+    });
+};
+// Отчет суточный
+BENZENE_API.prototype.getDailyDetaliReportOfInterval = function (start, stop, callback) {
+    $.ajax({
+        type: 'GET',
+        url: '../../api/web/report/daily/detali/start/' + toISOStringTZ(start).substring(0, 19) + '/stop/' + toISOStringTZ(stop).substring(0, 19),
+        async: true,
+        dataType: 'json',
+        beforeSend: function () {
+            AJAXBeforeSend();
+        },
+        success: function (data) {
+            if (typeof callback === 'function') {
+                callback(data);
+            }
+        },
+        error: function (x, y, z) {
+            OnAJAXError("BENZENE_API.getDailyDetaliReportOfInterval", x, y, z);
+        },
+        complete: function () {
+            AJAXComplete();
+        },
+    });
+};

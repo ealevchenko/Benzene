@@ -128,8 +128,10 @@ $(document).ready(function () {
                     "footerCallback": function (row, data, start, end, display) {
 
                         var total_volume = 0;
+                        var total_volume15 = 0;
                         var total_mass = 0;
                         var total_dens = 0;
+                        var total_dens15 = 0;
 
                         var api = this.api(), data;
                         // Remove the formatting to get integer data for summation
@@ -146,18 +148,29 @@ $(document).ready(function () {
                                 return intVal(a) + intVal(b.outed_volume);
                             }, 0);
                         //
+                        total_volume15 = api
+                            .data()
+                            .reduce(function (a, b) {
+                                return intVal(a) + intVal(b.outed_volume15);
+                            }, 0);
+                        //
                         total_mass = api
                             .data()
                             .reduce(function (a, b) {
                                 return intVal(a) + intVal(b.outed_mass);
                             }, 0);
 
-                        $('td#total_volume').text(Number(total_volume).toFixed(1));
-                        $('td#total_mass').text(Number(total_mass).toFixed(1));
+                        $('td#total_volume').text(Number(total_volume).toFixed(2));
+                        $('td#total_volume15').text(Number(total_volume15).toFixed(2));
+                        $('td#total_mass').text(Number(total_mass/1000).toFixed(2));
                         if (total_mass > 0 && total_volume > 0) {
-                            total_dens = (total_mass / total_volume) * 1000;
+                            total_dens = (total_mass / total_volume);
                         }
-                        $('td#total_dens').text(Number(total_dens).toFixed(1));
+                        if (total_mass > 0 && total_volume15 > 0) {
+                            total_dens15 = (total_mass / total_volume15);
+                        }
+                        $('td#total_dens').text(Number(total_dens).toFixed(4));
+                        $('td#total_dens15').text(Number(total_dens15).toFixed(4));
                     },
                     columns: [
                         {
@@ -180,21 +193,33 @@ $(document).ready(function () {
                         },
                         {
                             data: function (row, type, val, meta) {
-                                return row.outed_volume !== null ? Number(row.outed_volume).toFixed(1) : Number(0).toFixed(1);
+                                return row.outed_volume !== null ? Number(row.outed_volume).toFixed(2) : Number(0).toFixed(2);
                             },
-                            title: 'Выдано (л)', width: "50px", orderable: false, searchable: false, className: 'td-number'
+                            title: 'Выдано объем (л)', width: "50px", orderable: false, searchable: false, className: 'td-number'
                         },
                         {
                             data: function (row, type, val, meta) {
-                                return row.outed_mass !== null ? Number(row.outed_mass).toFixed(1) : Number(0).toFixed(1);
+                                return row.outed_volume15 !== null ? Number(row.outed_volume15).toFixed(2) : Number(0).toFixed(2);
                             },
-                            title: 'Выдано (кг)', width: "50px", orderable: false, searchable: false, className: 'td-number'
+                            title: 'Выдано объем (л), прив. к 15 град', width: "50px", orderable: false, searchable: false, className: 'td-number'
                         },
                         {
                             data: function (row, type, val, meta) {
-                                return row.outed_dens !== null ? Number(row.outed_dens).toFixed(1) : Number(0).toFixed(1);
+                                return row.outed_mass !== null ? Number(row.outed_mass/1000).toFixed(2) : Number(0).toFixed(2);
+                            },
+                            title: 'Выдано масса (т.)', width: "50px", orderable: false, searchable: false, className: 'td-number'
+                        },
+                        {
+                            data: function (row, type, val, meta) {
+                                return row.outed_dens !== null ? Number(row.outed_dens/1000).toFixed(4) : Number(0).toFixed(4);
                             },
                             title: 'Плотность (кг/м3)', width: "50px", orderable: false, searchable: false, className: 'td-number'
+                        },
+                        {
+                            data: function (row, type, val, meta) {
+                                return row.outed_dens15 !== null ? Number(row.outed_dens15/1000).toFixed(4) : Number(0).toFixed(4);
+                            },
+                            title: 'Плотность (кг/м3), прив. к 15 град', width: "50px", orderable: false, searchable: false, className: 'td-number'
                         }
                     ],
                     dom: 'Bfrtip',
@@ -207,7 +232,7 @@ $(document).ready(function () {
                         {
                             text: 'Excel',
                             extend: 'excelHtml5',
-                            sheetName: 'Движение бензола',
+                            sheetName: 'Выдача бензола',
                             messageTop: function () {
                                 return '';
                             }

@@ -167,10 +167,10 @@ $(document).ready(function () {
                             }, 0);
                         $('td#total_start_volume').text(Number(total_start_volume).toFixed(2));
                         $('td#total_stop_volume').text(Number(total_stop_volume).toFixed(2));
-                        $('td#total_start_mass').text(Number(total_start_mass).toFixed(2));
-                        $('td#total_stop_mass').text(Number(total_stop_mass).toFixed(2));
+                        $('td#total_start_mass').text(Number(total_start_mass/1000).toFixed(2));
+                        $('td#total_stop_mass').text(Number(total_stop_mass/1000).toFixed(2));
                         $('td#total_deff_volume').text(Number(total_start_volume - total_stop_volume).toFixed(2));
-                        $('td#total_deff_mass').text(Number(total_start_mass - total_stop_mass).toFixed(2));
+                        $('td#total_deff_mass').text((Number(total_start_mass - total_stop_mass)/1000).toFixed(2));
                     },
 
                     columns: [
@@ -195,13 +195,13 @@ $(document).ready(function () {
                         },
                         {
                             data: function (row, type, val, meta) {
-                                return row.start_mass !== null ? Number(row.start_mass).toFixed(2) : Number(0).toFixed(2);
+                                return row.start_mass !== null ? Number(row.start_mass/1000).toFixed(2) : Number(0).toFixed(2);
                             },
                             title: 'Масса в начале (т)', width: "50px", orderable: false, searchable: false, className:'td-number'
                         },
                         {
                             data: function (row, type, val, meta) {
-                                return row.stop_mass !== null ? Number(row.stop_mass).toFixed(2) : Number(0).toFixed(2);
+                                return row.stop_mass !== null ? Number(row.stop_mass/1000).toFixed(2) : Number(0).toFixed(2);
                             },
                             title: 'Масса в конце (т)', width: "50px", orderable: false, searchable: false, className:'td-number'
                         },
@@ -217,7 +217,7 @@ $(document).ready(function () {
                             data: function (row, type, val, meta) {
                                 var start = row.start_mass !== null ? Number(row.start_mass) : 0;
                                 var stop = row.stop_mass !== null ? Number(row.stop_mass) : 0;
-                                return Number(start - stop).toFixed(2)
+                                return Number((start - stop)/1000).toFixed(2)
                             },
                             title: 'Разница масса (т)', width: "50px", orderable: false, searchable: false, className:'td-number'
                         },
