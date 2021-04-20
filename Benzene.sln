@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web_UI", "Web_UI\Web_UI.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFBenzene", "EFBenzene\EFBenzene.csproj", "{F9D28C72-2778-46F2-A133-6B4A3EF62AC2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReportBenzeneServices", "ReportBenzeneServices\ReportBenzeneServices.csproj", "{DFE65C25-DF62-4217-B335-4BE19B2CDE48}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogFile", "LogFile\LogFile.csproj", "{2AE0080B-7E15-4C79-842C-35E52FC945FA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{F9D28C72-2778-46F2-A133-6B4A3EF62AC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F9D28C72-2778-46F2-A133-6B4A3EF62AC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F9D28C72-2778-46F2-A133-6B4A3EF62AC2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFE65C25-DF62-4217-B335-4BE19B2CDE48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFE65C25-DF62-4217-B335-4BE19B2CDE48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFE65C25-DF62-4217-B335-4BE19B2CDE48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFE65C25-DF62-4217-B335-4BE19B2CDE48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2AE0080B-7E15-4C79-842C-35E52FC945FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AE0080B-7E15-4C79-842C-35E52FC945FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AE0080B-7E15-4C79-842C-35E52FC945FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AE0080B-7E15-4C79-842C-35E52FC945FA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
