@@ -53,20 +53,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\IRepository.cs" />
+    <Compile Include="Concrete\DC\EFDaily_Report_Benzene.cs" />
+    <Compile Include="Concrete\DC\EFRemains_Benzene.cs" />
+    <Compile Include="Concrete\EFDCRepository.cs" />
     <Compile Include="Concrete\EFTanksDbContext.cs" />
     <Compile Include="Entities\BenzineSales.cs" />
     <Compile Include="Concrete\EFWEBDbContext.cs" />
     <Compile Include="Entities\T1.cs" />
     <Compile Include="Entities\T2.cs" />
+    <Compile Include="Entities\DC\Daily_Report_Benzene.cs" />
+    <Compile Include="Concrete\EFDCDbContext.cs" />
+    <Compile Include="Entities\DC\Remains_Benzene.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Transfer\TransferDC.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Abstract\" />
     <Folder Include="Model\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LogFile\LogFile.csproj">
+      <Project>{2ae0080b-7e15-4c79-842c-35e52fc945fa}</Project>
+      <Name>LogFile</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

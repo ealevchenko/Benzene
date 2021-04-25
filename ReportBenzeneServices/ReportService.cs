@@ -118,6 +118,20 @@ namespace ReportBenzeneServices
                             String.Format("Ошибка выполнения ХП [dbo].[Transfer_Daily_Report_Benzene]").SaveError(e);
                         }
                     }
+                    //
+                    // Выполнить ХП перенса остатков каждый час
+                    EFTanksDbContext ef_tanks = new EFTanksDbContext();
+                    try
+                    {
+                        string sql = "EXEC [dbo].[Transfer_Remains_Benzene]";
+                        int res = ef_tanks.Database.ExecuteSqlCommand(sql);
+                        String.Format("ХП [dbo].[Transfer_Remains_Benzene] - выполнена, перенесено {0} строк", res).SaveWarning();
+                    }
+                    catch (Exception e)
+                    {
+                        String.Format("Ошибка выполнения ХП [dbo].[Transfer_Remains_Benzene]").SaveError(e);
+                    }
+
                 }
 
                 //if (h == 1 && (m >= 5 && m <= 6) && !time_daily)
