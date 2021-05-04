@@ -26,7 +26,10 @@ namespace Test
             //}
 
             TransferDC tr = new TransferDC();
-            int result = tr.TransferRemainsToDC();
+            //int result = tr.TransferRemainsToDC();
+            //int result = tr.TransferDailyReportToDC();
+            int result = tr.TransferSalesBenzineToDC();
+            Console.WriteLine("result = {0}", result);
 
             Console.WriteLine("Press any key to exit...");
             Console.ReadKey();

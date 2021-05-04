@@ -9,6 +9,7 @@ using System.ServiceProcess;
 using System.Text;
 using System.Threading.Tasks;
 using EFBenzene.Concrete;
+using EFBenzene.Transfer;
 using MessageLog;
 
 namespace ReportBenzeneServices
@@ -81,6 +82,8 @@ namespace ReportBenzeneServices
         {
             try
             {
+                TransferDC tr = new TransferDC();
+
                 //String.Format("Сервис ReportBenzeneServices - сработал таймер OnTimerServices").SaveWarning();
                 string log_mes;
                 DateTime dt = DateTime.Now;
@@ -106,31 +109,27 @@ namespace ReportBenzeneServices
 
                     if (h == 0) {
                         // Выполнить ХП перенса суточного отчета
-                        EFWEBDbContext ef_web = new EFWEBDbContext();
-                        try
-                        {
-                            string sql = "EXEC [dbo].[Transfer_Daily_Report_Benzene]";
-                            int res = ef_web.Database.ExecuteSqlCommand(sql);
-                            String.Format("ХП [dbo].[Transfer_Daily_Report_Benzene] - выполнена, перенесено {0} строк", res).SaveWarning();
-                        }
-                        catch (Exception e)
-                        {
-                            String.Format("Ошибка выполнения ХП [dbo].[Transfer_Daily_Report_Benzene]").SaveError(e);
-                        }
+                        int res1 = tr.TransferDailyReportToDC();
+                        String.Format("Перенос среднесуточных расчетов - выполнен, код выполнения {0}", res1).SaveWarning();
+                        //EFWEBDbContext ef_web = new EFWEBDbContext();
+                        //try
+                        //{
+                        //    string sql = "EXEC [dbo].[Transfer_Daily_Report_Benzene]";
+                        //    int res = ef_web.Database.ExecuteSqlCommand(sql);
+                        //    String.Format("ХП [dbo].[Transfer_Daily_Report_Benzene] - выполнена, перенесено {0} строк", res).SaveWarning();
+                        //}
+                        //catch (Exception e)
+                        //{
+                        //    String.Format("Ошибка выполнения ХП [dbo].[Transfer_Daily_Report_Benzene]").SaveError(e);
+                        //}
                     }
                     //
                     // Выполнить ХП перенса остатков каждый час
-                    EFTanksDbContext ef_tanks = new EFTanksDbContext();
-                    try
-                    {
-                        string sql = "EXEC [dbo].[Transfer_Remains_Benzene]";
-                        int res = ef_tanks.Database.ExecuteSqlCommand(sql);
-                        String.Format("ХП [dbo].[Transfer_Remains_Benzene] - выполнена, перенесено {0} строк", res).SaveWarning();
-                    }
-                    catch (Exception e)
-                    {
-                        String.Format("Ошибка выполнения ХП [dbo].[Transfer_Remains_Benzene]").SaveError(e);
-                    }
+                    int res = tr.TransferRemainsToDC();
+                    String.Format("Перенос почасовых остатков в емкостях - выполнен, код выполнения {0}", res).SaveWarning();
+                    // Выполнить перенос выдач каждый час
+                    int res_sales = tr.TransferSalesBenzineToDC();
+                    String.Format("Перенос выдач бензола - выполнен, код выполнения {0}", res_sales).SaveWarning();
 
                 }
 

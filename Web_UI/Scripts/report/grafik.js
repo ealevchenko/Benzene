@@ -254,9 +254,9 @@ $(document).ready(function () {
 
                     createAxisAndSeries("level", "Уровень (мм)", false, "circle");
                     createAxisAndSeries("volume", "Объем (л)", false, "triangle");
-                    createAxisAndSeries("volume15", "Объем (л)", false, "triangle");
+                    createAxisAndSeries("volume15", "Объем прив. к 15 град.(л)", false, "triangle");
                     createAxisAndSeries("dens", "Плотность (кг/м3)", true, "rectangle");
-                    createAxisAndSeries("dens15", "Плотность (кг/м3)", true, "rectangle");
+                    createAxisAndSeries("dens15", "Плотность прив. к 15 град. (кг/м3)", true, "rectangle");
                     createAxisAndSeries("mass", "Масса (кг)", false, "rectangle");
                     createAxisAndSeries("temp", "Температура (град. С)", true, "rectangle");
                     createAxisAndSeries("water_level", "Уровень подт. вод. (мм)", true, "rectangle");

@@ -16,6 +16,7 @@ namespace EFBenzene.Concrete
 
         public virtual DbSet<Daily_Report_Benzene> Daily_Report_Benzene { get; set; }
         public virtual DbSet<Remains_Benzene> Remains_Benzene { get; set; }
+        public virtual DbSet<Sales_Benzine> Sales_Benzine { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
